@@ -1,0 +1,85 @@
+---
+title: "Classification Metrics"
+format: pdf
+execute:
+  error: true   # lets the file render even with unfilled blanks
+---
+
+
+#### ---------------------------------------------------------------------------
+
+### Load packages
+
+```{r setup}
+#| message: false
+library(tidyverse)
+library(tidymodels)   
+tidymodels_prefer()   
+```
+
+
+#### ---------------------------------------------------------------------------
+
+### Model Assessment
+
+### Confusion matrix and Classification Metrics
+
+```{r}
+# create confusion matrix (rows = predicted class, columns = true class)
+
+knn_cm <- default_test_preds |>
+  conf_mat(truth = __________, estimate = __________)
+
+knn_cm
+
+```
+
+
+```{r}
+#| fig-width: 4
+#| fig-height: 3.5
+
+autoplot(knn_cm, type = "heatmap")
+
+```
+
+
+```{r}
+# metrics computed from the confusion matrix ("Yes" is the event)
+
+summary(knn_cm)
+
+```
+
+
+
+### ROC curve and AUC
+
+```{r}
+#| fig-align: "center"
+#| fig-width: 5
+#| fig-height: 5
+
+# ROC curve: uses the PROBABILITY of the event, not the class labels
+
+knn_roc <- default_test_preds |>
+  roc_curve(truth = __________, __________)
+
+knn_roc   # one row per threshold
+
+autoplot(knn_roc)
+
+```
+
+```{r}
+# obtain AUC
+
+default_test_preds |>
+  roc_auc(truth = __________, __________)
+
+```
+
+
+
+#### ---------------------------------------------------------------------------
+
